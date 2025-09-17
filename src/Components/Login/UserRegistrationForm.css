@@ -1,5 +1,5 @@
 /* Container styling */
-.container {
+.urf-container {
   max-width: 400px;
   margin: 60px auto;
   padding: 30px;
@@ -9,7 +9,7 @@
 }
 
 /* Heading */
-.container h2 {
+.urf-container h2 {
   text-align: center;
   margin-bottom: 25px;
   color: #333;
@@ -17,7 +17,7 @@
 }
 
 /* Form group spacing */
-form .mb-3 {
+form .urf-mb-3 {
   margin-bottom: 20px;
 }
 
@@ -30,7 +30,7 @@ form label {
 }
 
 /* Input fields */
-form .form-control {
+form .urf-form-control {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #ccc;
@@ -39,13 +39,13 @@ form .form-control {
   transition: border-color 0.3s ease;
 }
 
-form .form-control:focus {
+form .urf-form-control:focus {
   border-color: #007bff;
   outline: none;
 }
 
 /* Submit button */
-form .btn-primary {
+form .urf-btn-primary {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -57,12 +57,12 @@ form .btn-primary {
   transition: background-color 0.3s ease;
 }
 
-form .btn-primary:hover {
+form .urf-btn-primary:hover {
   background-color: #0056b3;
 }
 
 /* Link button */
-form .btn-link {
+form .urf-btn-link {
   display: block;
   text-align: center;
   margin-top: 10px;
@@ -70,12 +70,12 @@ form .btn-link {
   text-decoration: none;
 }
 
-form .btn-link:hover {
+form .urf-btn-link:hover {
   text-decoration: underline;
 }
 
 /* Message styling */
-.mt-3 {
+.urf-mt-3 {
   text-align: center;
   color: green;
   font-weight: 500;

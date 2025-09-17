@@ -6,7 +6,7 @@ function ApplyLeaveForm({ onClose }) {
     reason: '',
     fromDate: '',
     toDate: '',
-    createdBy: 1 // Replace with actual user ID
+    createdBy: 1 
   });
 
   const handleChange = (e) => {
@@ -18,11 +18,14 @@ function ApplyLeaveForm({ onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
+    const dateRangeError = validateDates(formData.fromDate, formData.toDate);
+    if(dateRangeError){
+      alert("kindly check the date range"); 
+      return; 
+    }
     const payload = {
       ...formData,
-      status: 'Pending',
-      createdAt: new Date().toISOString()
     };
     const token = localStorage.getItem('AuthToken');
     try {
@@ -43,6 +46,15 @@ function ApplyLeaveForm({ onClose }) {
       console.error('Error:', error);
     }
   };
+
+  
+ const validateDates = (fromDate, toDate) => {
+    if (!fromDate || !toDate) return ''; 
+    
+    if (fromDate > toDate) return 'From date cannot be after To date.';
+    return '';
+  };
+
 
   return (
     <form onSubmit={handleSubmit}>

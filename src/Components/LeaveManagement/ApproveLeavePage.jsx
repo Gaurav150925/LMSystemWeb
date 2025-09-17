@@ -65,9 +65,54 @@ function ApproveLeavePage() {
     }
   };
 
+  const handleReject = async (id) => {
+    const token = localStorage.getItem('AuthToken'); // fixed key
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest/${id}/reject`, {
+        method: 'POST', 
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ updatedAt: new Date().toISOString() }) // send any required data
+      });
+
+      if (!response.ok) throw new Error('Rejection failed');
+
+      alert('Leave Rejected!');
+      setLeaves(prev => prev.filter(l => l.id !== id));
+    } catch (error) {
+      console.error('Error rejecting leave:', error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const token = localStorage.getItem('AuthToken'); // fixed key
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) throw new Error('Deletion failed');
+
+      alert('Leave deleted!');
+      setLeaves(prev => prev.filter(l => l.id !== id));
+    } catch (error) {
+      console.error('Error deleting leave:', error);
+    }
+  };
+
+ 
+
   return (
     <div className="container mt-4">
-      <h2>Approve Leave Requests</h2>
+      <h2>Process Leave Requests</h2>
        <Link to={"/leaves"} className='btn btn-primary m-2'>Leave  
       </Link>
       {leaves.length === 0 ? (
@@ -80,7 +125,6 @@ function ApproveLeavePage() {
               <th>Reason</th>
               <th>From</th>
               <th>To</th>
-              <th>Created By</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -91,11 +135,17 @@ function ApproveLeavePage() {
                 <td>{leave.reason}</td>
                 <td>{new Date(leave.fromDate).toLocaleDateString()}</td>
                 <td>{new Date(leave.toDate).toLocaleDateString()}</td>
-                <td>{leave.createdBy}</td>
                 <td>
-                  <button className="btn btn-success" onClick={() => handleApprove(leave.id)}>
+                  <button className="btn btn-outline-success" onClick={() => handleApprove(leave.id)}>
                     Approve
+                  </button>||
+                  <button className="btn btn-outline-warning" onClick={() => handleReject(leave.id)}>
+                    Reject
+                  </button>||
+                    <button className="btn btn-outline-danger" onClick={() => handleDelete(leave.id)}>
+                    Delete
                   </button>
+
                 </td>
               </tr>
             ))}

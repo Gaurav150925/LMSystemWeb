@@ -15,10 +15,11 @@ function App() {
     <BrowserRouter>
         <Routes>
         <Route path="/Login" element={<Login />} />
+         <Route path="/" element={<Login />} />
          <Route path="/register" element={<UserRegistrationForm />} />
        
         <Route element={<Layout />}>
-          <Route path="/" element={<LeaveGrid />} />
+          <Route path="/leaves" element={<LeaveGrid />} />
           <Route path="/approveleave" element={<ApproveLeavePage />} />
           <Route path="/leaves" element={<Leaves />} />
         </Route>

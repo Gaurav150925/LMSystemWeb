@@ -15,7 +15,7 @@ function Login() {
     };
 
     try {
-      debugger
+      
       const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/Login`, {
         method: 'POST',
         headers: {
@@ -25,15 +25,16 @@ function Login() {
       });
 
       if (!response.ok) {
-        throw new Error('Login failed');
+        console.log("Something went wrong");  
       }
 
       const result = await response.json();
       console.log('Login successful:', result);
       localStorage.setItem('AuthToken', result.token);  
       navigate('/leaves');
-      // You can store token or redirect here
+     
     } catch (error) {
+      alert('Login failed');
       console.error('Error during login:', error);
     }
   };
