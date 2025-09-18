@@ -9,25 +9,38 @@ import Layout from './Components/Layout/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LeaveGrid from './Components/LeaveManagement/LeaveGrid';
 import UserRegistrationForm from './Components/Login/UserRegistrationForm';
+import { AuthProvider, useAuth } from './AuthComponent/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 function App() {
+
+  
+const PrivateRoute = ({ children }) => {
+  debugger
+  const { user } = useAuth();
+  return user ? children : <Navigate to="/login" />;
+};
+
+
   return (
-    <BrowserRouter>
-        <Routes>
-        <Route path="/Login" element={<Login />} />
-         <Route path="/" element={<Login />} />
-         <Route path="/register" element={<UserRegistrationForm />} />
-       
-        <Route element={<Layout />}>
-          <Route path="/leaves" element={<LeaveGrid />} />
-          <Route path="/approveleave" element={<ApproveLeavePage />} />
-          <Route path="/leaves" element={<Leaves />} />
-        </Route>
+    <AuthProvider>
+      <BrowserRouter>
+          <Routes>
+          <Route path="/Login" element={<Login />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<UserRegistrationForm />} />
+        
+          <Route element={<PrivateRoute><Layout /></PrivateRoute>}>
+            <Route path="/leaves" element={<LeaveGrid />} />
+            <Route path="/approveleave" element={<ApproveLeavePage />} />
+            <Route path="/leaves" element={<Leaves />} />
+          </Route>
 
-        <Route path="/unauthorized" element={<Unauthorized />} />
-      </Routes>
+          <Route path="/unauthorized" element={<Unauthorized />} />
+        </Routes>
 
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

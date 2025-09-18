@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { Link } from 'react-router-dom';
+import { Table, Button, Modal } from 'react-bootstrap';
+import LeaveProcess from './LeaveProcess';
 
 function ApproveLeavePage() {
   const [leaves, setLeaves] = useState([]);
+  const [leaveID,setLeaveID]=useState(0);
   const navigate = useNavigate();
-
+   const [showLeaveprocessModel,setShowLeaveprocessModel]=useState(false);
   useEffect(() => {
     const token = localStorage.getItem('AuthToken');
     if (!token) {
@@ -29,7 +32,8 @@ function ApproveLeavePage() {
       return;
     }
 
-    fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest/PendingLeaves`, {
+      method: 'POST',  
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -42,50 +46,6 @@ function ApproveLeavePage() {
       })
       .catch(err => console.error('Error fetching leaves:', err));
   }, [navigate]);
-
-  const handleApprove = async (id) => {
-    const token = localStorage.getItem('AuthToken'); // fixed key
-
-    try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest/${id}/approve`, {
-        method: 'POST', // use POST for approve endpoint
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ updatedAt: new Date().toISOString() }) // send any required data
-      });
-
-      if (!response.ok) throw new Error('Approval failed');
-
-      alert('Leave approved!');
-      setLeaves(prev => prev.filter(l => l.id !== id));
-    } catch (error) {
-      console.error('Error approving leave:', error);
-    }
-  };
-
-  const handleReject = async (id) => {
-    const token = localStorage.getItem('AuthToken'); // fixed key
-
-    try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest/${id}/reject`, {
-        method: 'POST', 
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ updatedAt: new Date().toISOString() }) // send any required data
-      });
-
-      if (!response.ok) throw new Error('Rejection failed');
-
-      alert('Leave Rejected!');
-      setLeaves(prev => prev.filter(l => l.id !== id));
-    } catch (error) {
-      console.error('Error rejecting leave:', error);
-    }
-  };
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem('AuthToken'); // fixed key
@@ -109,6 +69,17 @@ function ApproveLeavePage() {
   };
 
  
+ const handleleaveprocessClose = (id) => {
+   
+    setShowLeaveprocessModel(false);
+  };
+
+   const ProcessLeave=(id)=>
+    {
+       setLeaveID(id)
+      setShowLeaveprocessModel(true);
+
+    }
 
   return (
     <div className="container mt-4">
@@ -125,6 +96,7 @@ function ApproveLeavePage() {
               <th>Reason</th>
               <th>From</th>
               <th>To</th>
+              <th>Userid</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -135,12 +107,10 @@ function ApproveLeavePage() {
                 <td>{leave.reason}</td>
                 <td>{new Date(leave.fromDate).toLocaleDateString()}</td>
                 <td>{new Date(leave.toDate).toLocaleDateString()}</td>
+                <td>{leave.createdBy}</td>
                 <td>
-                  <button className="btn btn-outline-success" onClick={() => handleApprove(leave.id)}>
-                    Approve
-                  </button>||
-                  <button className="btn btn-outline-warning" onClick={() => handleReject(leave.id)}>
-                    Reject
+                  <button className="btn btn-outline-success" onClick={() => ProcessLeave(leave.id)}>
+                    Process Request
                   </button>||
                     <button className="btn btn-outline-danger" onClick={() => handleDelete(leave.id)}>
                     Delete
@@ -152,7 +122,17 @@ function ApproveLeavePage() {
           </tbody>
         </table>
       )}
+         <Modal show={showLeaveprocessModel} onHide={handleleaveprocessClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Process Leaves</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <LeaveProcess onClose={handleleaveprocessClose} leaveID={leaveID} />
+        </Modal.Body>
+      </Modal>
+      
     </div>
+    
   );
 }
 
