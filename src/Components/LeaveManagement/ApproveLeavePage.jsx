@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { Link } from 'react-router-dom';
+import { Table, Button, Modal } from 'react-bootstrap';
+import LeaveProcess from './LeaveProcess';
 
 function ApproveLeavePage() {
   const [leaves, setLeaves] = useState([]);
+  const [leaveID,setLeaveID]=useState(0);
   const navigate = useNavigate();
-
+   const [showLeaveprocessModel,setShowLeaveprocessModel]=useState(false);
   useEffect(() => {
     const token = localStorage.getItem('AuthToken');
     if (!token) {
@@ -29,7 +32,8 @@ function ApproveLeavePage() {
       return;
     }
 
-    fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest/PendingLeaves`, {
+      method: 'POST',  
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -43,31 +47,43 @@ function ApproveLeavePage() {
       .catch(err => console.error('Error fetching leaves:', err));
   }, [navigate]);
 
-  const handleApprove = async (id) => {
+  const handleDelete = async (id) => {
     const token = localStorage.getItem('AuthToken'); // fixed key
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest/${id}/approve`, {
-        method: 'POST', // use POST for approve endpoint
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest/${id}`, {
+        method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ updatedAt: new Date().toISOString() }) // send any required data
+        }
       });
 
-      if (!response.ok) throw new Error('Approval failed');
+      if (!response.ok) throw new Error('Deletion failed');
 
-      alert('Leave approved!');
+      alert('Leave deleted!');
       setLeaves(prev => prev.filter(l => l.id !== id));
     } catch (error) {
-      console.error('Error approving leave:', error);
+      console.error('Error deleting leave:', error);
     }
   };
 
+ 
+ const handleleaveprocessClose = (id) => {
+   
+    setShowLeaveprocessModel(false);
+  };
+
+   const ProcessLeave=(id)=>
+    {
+       setLeaveID(id)
+      setShowLeaveprocessModel(true);
+
+    }
+
   return (
     <div className="container mt-4">
-      <h2>Approve Leave Requests</h2>
+      <h2>Process Leave Requests</h2>
        <Link to={"/leaves"} className='btn btn-primary m-2'>Leave  
       </Link>
       {leaves.length === 0 ? (
@@ -80,7 +96,7 @@ function ApproveLeavePage() {
               <th>Reason</th>
               <th>From</th>
               <th>To</th>
-              <th>Created By</th>
+              <th>Userid</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -93,16 +109,30 @@ function ApproveLeavePage() {
                 <td>{new Date(leave.toDate).toLocaleDateString()}</td>
                 <td>{leave.createdBy}</td>
                 <td>
-                  <button className="btn btn-success" onClick={() => handleApprove(leave.id)}>
-                    Approve
+                  <button className="btn btn-outline-success" onClick={() => ProcessLeave(leave.id)}>
+                    Process Request
+                  </button>||
+                    <button className="btn btn-outline-danger" onClick={() => handleDelete(leave.id)}>
+                    Delete
                   </button>
+
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
+         <Modal show={showLeaveprocessModel} onHide={handleleaveprocessClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Process Leaves</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <LeaveProcess onClose={handleleaveprocessClose} leaveID={leaveID} />
+        </Modal.Body>
+      </Modal>
+      
     </div>
+    
   );
 }
 
