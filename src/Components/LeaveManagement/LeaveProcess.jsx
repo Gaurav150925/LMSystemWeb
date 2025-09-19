@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 
 function LeaveProcess({onClose,leaveID}) {
-    debugger
+    
      const [formData, setFormData] = useState({
         status: '',
         comment: '',

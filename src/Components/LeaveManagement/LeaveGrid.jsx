@@ -57,7 +57,7 @@ if (token) {
   
      
   const deleteLeave=(id)=>{
-    debugger
+    
     const delresponse= fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest/${id}`, {
       method: 'DELETE',
       headers: {

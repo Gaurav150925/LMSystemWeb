@@ -88,7 +88,7 @@ function UpdateLeaveForm({ onClose, leave }) {
 
       if (res.status === 204) {
         alert("Leave updated successfully!");
-        onClose(); // ideally also refresh list in parent
+        onClose();
       } else if (res.status === 409) {
         alert("Only 'Pending' requests can be updated, or it changed meanwhile.");
       } else if (res.status === 400) {

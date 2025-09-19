@@ -17,7 +17,6 @@ function App() {
 
   
 const PrivateRoute = ({ children }) => {
-  debugger
   const { user } = useAuth();
   return user ? children : <Navigate to="/login" />;
 };

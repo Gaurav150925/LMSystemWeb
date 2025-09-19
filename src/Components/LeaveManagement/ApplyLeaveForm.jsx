@@ -39,7 +39,7 @@ function ApplyLeaveForm({ onClose }) {
       });
 
       if (!response.ok) {
-        debugger
+        
         alert(response.statusText || 'Failed to apply leave');  
       }
       else{
