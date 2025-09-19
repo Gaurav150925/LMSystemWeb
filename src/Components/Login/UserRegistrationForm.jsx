@@ -44,6 +44,7 @@ function UserRegistrationForm() {
 
     const result = await response.json();
     setMessage(`User ${username} registered successfully as ${role}.`);
+    alert(`User ${username} registered successfully as ${role}.`);
   } catch (error) {
     console.error('Error:', error);
     setMessage('Registration failed. Please try again.');

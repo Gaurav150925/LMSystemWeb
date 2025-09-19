@@ -102,9 +102,14 @@ if (token) {
           Apply Leave
         </Button>
         {isAdmin && (
+          <>
           <Link to="/approveleave" className="btn btn-primary m-2">
             Process Leave
           </Link>
+            <Link to="/leaveshistory" className="btn btn-primary m-2">
+            Leave History
+          </Link>
+          </>
         )}
         <input
         type="date"
@@ -155,8 +160,15 @@ if (token) {
               <td>{new Date(leave.fromDate).toLocaleDateString()}</td>
               <td>{new Date(leave.toDate).toLocaleDateString()}</td>
               <td>
-                <button className='btn btn-outline-warning' onClick={() => updateLeave(leave)}>Update</button>||
-               <button className='btn btn-outline-danger' onClick={() => deleteLeave(leave.id)}>Delete</button> </td>
+                <button className='btn btn-outline-warning' onClick={() => updateLeave(leave)}>Update</button>
+             
+                {isAdmin && (
+                    <>
+                      {" || "}
+                      <button className='btn btn-outline-danger' onClick={() => deleteLeave(leave.id)}>Delete</button>
+                    </>
+                  )}
+                </td>
             </tr>
           ))}
         </tbody>

@@ -38,9 +38,13 @@ function ApplyLeaveForm({ onClose }) {
         body: JSON.stringify(payload)
       });
 
-      if (!response.ok) throw new Error('Failed to apply leave');
-
-      alert('Leave applied successfully!');
+      if (!response.ok) {
+        debugger
+        alert(response.statusText || 'Failed to apply leave');  
+      }
+      else{
+        alert('Leave applied successfully!');
+      }
       onClose();
     } catch (error) {
       console.error('Error:', error);

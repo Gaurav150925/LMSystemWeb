@@ -11,6 +11,7 @@ import LeaveGrid from './Components/LeaveManagement/LeaveGrid';
 import UserRegistrationForm from './Components/Login/UserRegistrationForm';
 import { AuthProvider, useAuth } from './AuthComponent/AuthContext';
 import { Navigate } from 'react-router-dom';
+import LeaveHistoryGrid from './Components/LeaveManagement/LeaveHistoryGrid';
 
 function App() {
 
@@ -34,6 +35,7 @@ const PrivateRoute = ({ children }) => {
             <Route path="/leaves" element={<LeaveGrid />} />
             <Route path="/approveleave" element={<ApproveLeavePage />} />
             <Route path="/leaves" element={<Leaves />} />
+            <Route path="/leaveshistory" element={<LeaveHistoryGrid />} />
           </Route>
 
           <Route path="/unauthorized" element={<Unauthorized />} />

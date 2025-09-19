@@ -86,6 +86,8 @@ function ApproveLeavePage() {
       <h2>Process Leave Requests</h2>
        <Link to={"/leaves"} className='btn btn-primary m-2'>Leave  
       </Link>
+       <Link to={"/leaveshistory"} className='btn btn-primary m-2'>leaveshistory  
+      </Link>
       {leaves.length === 0 ? (
         <p>No pending leave requests.</p>
       ) : (
