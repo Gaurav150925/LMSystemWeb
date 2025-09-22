@@ -17,17 +17,18 @@ function LeaveProcess({onClose,leaveID}) {
     };
     const token = localStorage.getItem('AuthToken');
     try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest/${leaveID}/status?status=${formData.status}`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/LeaveRequest/${leaveID}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
            'Authorization': `Bearer ${token}`,
         },
+        body: JSON.stringify(payload),  
       });
 
       if (!response.ok) throw new Error('Failed to apply leave');
 
-      alert('Leave applied successfully!');
+      alert('Leave Processed successfully!');
       onClose();
     } catch (error) {
       console.error('Error:', error);
