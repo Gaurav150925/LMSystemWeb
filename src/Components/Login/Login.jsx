@@ -1,46 +1,14 @@
-import React, { useState, } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './Login.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Login.css";
+import bgImage from "../../assets/LMsystembg.png";
 
-function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const loginData = {
-      username: username,
-      password: password // assuming your backend expects this field name
-    };
-
-    try {
-      
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/Login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(loginData)
-      });
-
-      if (!response.ok) {
-        console.log("Something went wrong");  
-      }
-
-      const result = await response.json();
-      console.log('Login successful:', result);
-      localStorage.setItem('AuthToken', result.token);  
-      navigate('/leaves');
-     
-    } catch (error) {
-      alert('Login failed');
-      console.error('Error during login:', error);
-    }
-  };
-
+function Login({ username, password, setUsername, setPassword, handleSubmit }) {
   return (
-    <div className="login-container">
+    <div
+      className="login-container"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
         <div className="form-group">
@@ -64,7 +32,8 @@ function Login() {
           />
         </div>
         <button type="submit">Login</button>
-        <Link to={"/register"} className='btn btn-link'>Register New User
+        <Link to={"/register"} className="btn btn-link">
+          Register New User
         </Link>
       </form>
     </div>
