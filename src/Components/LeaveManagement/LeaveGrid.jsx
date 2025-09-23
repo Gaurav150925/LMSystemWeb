@@ -20,6 +20,7 @@ function LeaveGrid({
   onApplyClick,
   onClose,
   onUpdateClose,
+  onExportleaves,
 }) {
   return (
     <div className="container mt-4">
@@ -36,24 +37,30 @@ function LeaveGrid({
             <Link to="/leaveshistory" className="btn btn-outline-primary m-2">
               Leave History
             </Link>
+            <Link
+              className="btn btn-outline-primary m-2"
+              onClick={onExportleaves}
+            >
+              Export Leaves
+            </Link>
           </>
         )}
         <input
           type="date"
-          className="form-control mx-2"
+          className="form-control btn btn-outline-secondary mx-2"
           style={{ maxWidth: "180px" }}
           value={filterFromDate}
           onChange={(e) => setFilterFromDate(e.target.value)}
         />
         <input
           type="date"
-          className="form-control mx-2"
+          className="form-control btn btn-outline-secondary mx-2"
           style={{ maxWidth: "180px" }}
           value={filterToDate}
           onChange={(e) => setFilterToDate(e.target.value)}
         />
         <select
-          className="form-control"
+          className="form-control btn btn-outline-secondary mx-2"
           style={{ maxWidth: "180px" }}
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
@@ -100,7 +107,10 @@ function LeaveGrid({
           <Modal.Title>Update Leave</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <UpdateLeaveController onClose={onUpdateClose} leave={selectedLeave} />
+          <UpdateLeaveController
+            onClose={onUpdateClose}
+            leave={selectedLeave}
+          />
         </Modal.Body>
       </Modal>
     </div>

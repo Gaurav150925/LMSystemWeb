@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
 
       try {
         const decoded = jwtDecode(storedToken); // decode the JWT
-        debugger
+        
         setUser({
           username: decoded.username,
           role: decoded.role

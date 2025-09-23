@@ -18,10 +18,13 @@ function LeaveProcessController({ onClose, leaveID }) {
   };
 
   const handleSubmit = async (e) => {
-   e.preventDefault();  
+    e.preventDefault();
 
     try {
-      const res = await apiService.put(`/api/LeaveRequest/${leaveID}/status`, formData);
+      const res = await apiService.put(
+        `/api/LeaveRequest/${leaveID}/status`,
+        formData
+      );
 
       if (res) {
         toast.success("Leave processed successfully!");
@@ -29,7 +32,9 @@ function LeaveProcessController({ onClose, leaveID }) {
         console.log("Leave History:", res.item2);
         onClose();
       } else if (res?.error) {
-        toast.error(res.message || "Failed to process response. Please try again.");
+        toast.error(
+          res.message || "Failed to process response. Please try again."
+        );
       } else {
         toast.error("Unexpected response format.");
       }

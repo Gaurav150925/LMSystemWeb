@@ -17,7 +17,7 @@ function LoginController() {
     try {
       // Use apiService.post for login
       const result = await apiService.post("/api/Login", loginData);
-      debugger;
+
       if (!result?.token) {
         toast.error("Login failed: No token received");
         return;
