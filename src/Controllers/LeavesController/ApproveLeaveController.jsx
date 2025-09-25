@@ -48,7 +48,7 @@ function ApproveLeaveController() {
           toast.error("Session expired. Please log in again.");
           navigate("/unauthorized");
         } else {
-          toast.error("Error fetching pending leaves:"  );
+          toast.error("Error fetching pending leaves:");
         }
       });
   }, [navigate]);

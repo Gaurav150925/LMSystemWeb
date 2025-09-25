@@ -45,7 +45,9 @@ function ApplyLeaveController({ onClose }) {
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Something went wrong while applying for leave kindly check if leave are overlapping.");
+      toast.error(
+        "Something went wrong while applying for leave kindly check if leave are overlapping."
+      );
     }
   };
 

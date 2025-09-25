@@ -116,6 +116,20 @@ function LeaveGridController() {
     },
   ];
 
+  const OnLeavesExport = async () => {
+    try {
+      await apiService.get(`/api/LeaveRequest/export`);
+      toast.success("Leaves Exported Successfully");
+    } catch (err) {
+      if (err.message.includes("401")) {
+        toast.error("Unauthorized. Please log in again.");
+      } else {
+        console.error("Error deleting leave:", err);
+        toast.error("Something went wrong while exporting the leave.");
+      }
+    }
+  };
+
   return (
     <LeaveGrid
       columns={columns}
@@ -135,6 +149,7 @@ function LeaveGridController() {
       onUpdateClose={handleUpdateClose}
       onDelete={deleteLeave}
       onUpdate={updateLeave}
+      onExportleaves={OnLeavesExport}
     />
   );
 }

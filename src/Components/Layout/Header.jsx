@@ -20,7 +20,6 @@ const Header = () => {
     decoded.name ||
     decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
 
-  debugger;
   const handleLogout = () => {
     localStorage.removeItem("AuthToken");
     navigate("/login");

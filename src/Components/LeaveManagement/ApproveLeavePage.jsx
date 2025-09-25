@@ -48,7 +48,10 @@ function ApproveLeaveGrid({
           <Modal.Title>Process Leaves</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <LeaveProcessController onClose={onLeaveProcessClose} leaveID={leaveID} />
+          <LeaveProcessController
+            onClose={onLeaveProcessClose}
+            leaveID={leaveID}
+          />
         </Modal.Body>
       </Modal>
     </div>

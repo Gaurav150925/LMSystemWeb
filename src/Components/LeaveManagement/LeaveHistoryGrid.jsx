@@ -20,20 +20,24 @@ function LeaveHistoryGrid({
             <Link to="/approveleave" className="btn btn-outline-primary m-2">
               Process Leave
             </Link>
-            <Link to="/leaves" className="btn btn-outline-primary m-2">
+            <Link
+              to="/leaves"
+              className="btn btn-outline-primary m-2"
+              style={{ width: "120px" }}
+            >
               Leave
             </Link>
           </>
         )}
         <input
           type="date"
-          className="form-control mx-2"
+          className="form-control btn btn-outline-secondary mx-2"
           style={{ maxWidth: "180px" }}
           value={filterFromDate}
           onChange={(e) => setFilterFromDate(e.target.value)}
         />
         <select
-          className="form-control"
+          className="form-control btn btn-outline-secondary mx-2"
           style={{ maxWidth: "180px" }}
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
