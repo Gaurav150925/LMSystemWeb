@@ -1,10 +1,44 @@
-# Getting Started with Create React App
+# LMSystemWeb - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based frontend for managing employee leaves, including login, registration, leave application, approval (admin-only), and history tracking.
+
+## 🛠️ Tech Stack
+
+- **React** (v18+)
+- **React Router DOM** (v6+)
+- **Fetch API** for HTTP requests
+- **React Toastify** for notifications
+- **Bootstrap** for styling and layout
+- **Context API** for state management
+
+
+## ✨ Features
+
+- 🔐 User Authentication (Login/Register)
+- 📝 Apply for Leave
+- 📊 View Leave History
+- ✅ Admin Leave Approval Dashboard
+- 🚪 Logout functionality
+- 🔔 Toast notifications for feedback
+
+
+
+## 📦 Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Gaurav150925/LMSystemWeb.git
+   cd LMSystemWeb
+   ```
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+
+### `npm install`
+
+Installs all the dependecy used in the Project
 
 ### `npm start`
 
@@ -17,7 +51,7 @@ You may also see any lint errors in the console.
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+See the section about [running tests].
 
 ### `npm run build`
 
@@ -27,44 +61,58 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## ⚙️ Configuration
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Create a `.env` file in the root directory and add the following:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```env
+REACT_APP_API_BASE_URL=https://localhost:7088
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📁 Folder Structure
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+src/ ├── assets/ # Images, icons, etc. 
+     ├── AuthComponents/ # having all the Authentication related components
+     ├── components/ # Reusable UI components 
+     ├── Config / # having configurable data file 
+     ├── Controllers/ # having all the business logic for the components
+     ├── services/ # API calls using Fetch 
+     ├── Routes/ # Global state (if using Context API) 
+     ├── App.js # Main app component 
+     ├── index.js # Entry point
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## 🧪 Dummy Credentials
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+You can use the following dummy accounts for testing:
 
-### Analyzing the Bundle Size
+- **Admin**
+  - Email: `Testadmin`
+  - Password: `admin@123`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **User**
+  - Email: `testuser`
+  - Password: `user@123`
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🐞 Known Issues
 
-### Advanced Configuration
+- Leave approval page may not refresh automatically after action.
+- Toasts may overlap if multiple actions are triggered quickly.
+- No role-based routing protection implemented yet.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+## 🤝 Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Feel free to fork the repo and submit pull requests. For major changes, please open an issue first to discuss what you'd like to change.
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Steps to Contribute:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a pull request
+ check if this is a valid readme complete or anything is required
